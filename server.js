@@ -1,22 +1,46 @@
-const express = require('express');
-const faker = require('@faker-js/faker');
-const PORT = 8000
-
-
-import { faker } from '@faker-js/faker';
+const { faker } = require('@faker-js/faker');
 // remember to use import and NOT require
 // we can create a function to return a random / fake "Product"
 const createProduct = () => {
     const newFake = {
-        name: faker.commerce.productName(),
+        password: faker.internet.password(),
+        email:faker.internet.email(), // 'Kassandra4@hotmail.com'
+        phoneNumnber:faker.phone.number('+48 91 ### ## ##'), // '+48 91 463 61 70'
+        lastName: faker.name.findName(), // => "Terrence Rau"
+        firstName:faker.name.firstName(), // => "Katharina"
+        id: faker.database.mongodbObjectId(), // => "cdfcdcbc9de896d1f58abbba"
+
+
+
+
+
         price: "$" + faker.commerce.price(),
         department: faker.commerce.department()
     };
     return newFake;
+
 };
+const createCompany = () => {
+
+    const Compony = {
+        id: faker.database.mongodbObjectId(),
+        name: faker.name.findName(),
+        city: faker.address.city(), // 'East Jarretmouth'
+        street: faker.address.streetAddress(),
+        state: faker.address.state(),
+        zipCode: faker.address.zipCode(),
+        country: faker.address.country()
+    
+    
+    }
+    
+    return Compony;
+}
     
 const newFakeProduct = createProduct();
 console.log(newFakeProduct);
+const Compony = createCompany();
+console.log(Compony);
 /*
  * The output of the above console log will look like this
  * {
@@ -26,17 +50,3 @@ console.log(newFakeProduct);
  * }
  */
 
-app.use( express.json() );
-app.use( express.urlencoded({ extended: true }) );
-
-require("./routes/user")(app)
-require("./routes/company")(app)
-
-app.post("/api/user/company", (res,req)=>{
-    company.push(req.body)
-    user.push(req.body)
-    res.json({message})
-}
-)
-
-app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
